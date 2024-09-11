@@ -134,6 +134,7 @@
 
             tease.style.display = "block";
             tease.innerHTML = "⏱️ TIC...";
+            buyButton.disabled = true;
             setTimeout(() => {
                 tease.innerHTML += "TAC...";
                 setTimeout(() => {
@@ -192,13 +193,13 @@
                                     tease.innerHTML = "💥 BLIMEY 💥";
                                 }
 
-                                if (destroyedPixels >= totalPixels * 0.3 && destroyedPixels < totalPixels * 0.4) {
+                                if (destroyedPixels >= totalPixels * 0.3 && destroyedPixels < totalPixels * 0.5) {
                                     buyButton.style.backgroundColor = "red";
                                     buyButton.innerHTML = `ARTWORK DAMAGED`;
                                     tease.innerHTML = "🙀 ARTWORK IS GETTING DESTROYED !!! 💬  ";
                                 }
 
-                                if (destroyedPixels >= totalPixels * 0.4) {
+                                if (destroyedPixels >= totalPixels * 0.5) {
                                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                                     svgContainer.innerHTML = "ARTWORK AUTODESTROY COMPLETED! <br><br> BUT REMIND <br><br> THIS WON'T HAPPEN IN THE BLOCKCHAIN WHERE ART IS IMMUTABLE";
                                     buyButton.disabled = true;
