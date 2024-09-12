@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mooncat Auction</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-size: 16px;
+            max-width: 620px;
+            max-height: 470px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 620px;
+            max-height: 470px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .auction-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        #asciiLeft, #asciiRight {
+            width: 200px;
+            white-space: pre;
+            font-family: monospace;
+            text-align: center;
+            color: blue;
+            word-wrap: break-word;
+        }
+
+        #svgContainer {
+            width: 300px;
+            height: 300px;
+            border: 7px solid gold;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #message {
+            font-size: 18px;
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+
+        #tease {
+            text-align: center;
+            display: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="auction-container">
+            <!-- ASCII art à gauche -->
+            <div id="asciiLeft">
+                <pre>
+-┌───-───-───-───┐-
+-│---------------│-
+-│---  /\_/\-----│-
+-│--- ( o.o ) ---│-
+-│---- > ^ <-----│-
+-│---------------│-
+-│---------------│-
+-│- WELCOME TO  -│-
+-│-   MOONCAT    │-
+-│-   AUCTION   -│-
+-│---------------│-
+-└───-───-───-───┘-
+                </pre>
+            </div>
+            <!-- Conteneur du SVG et canvas -->
+            <div id="svgContainer">
+                <canvas id="canvas" width="300" height="210"></canvas>
+            </div>
+            <!-- ASCII art à droite -->
+            <div id="asciiRight">
+                <pre>
+-┌───-───-───-───┐-
+-│-----\-[*]-----│-
+-│------'F/\-----│-
+-│-------3;-\----│-
+-│------/-|------│-
+-│-----/--|------│-
+-│---------------│-
+-│-  BIDS OPEN  -│-
+-│-    GOOD     -│-
+-│-    LUCK     -│-
+-│---------------│-
+-└───-───-───-───┘-
+                </pre>
+            </div>
+        </div>
+
+        <!-- Conteneur pour les actions sous le canvas -->
+        <div class="actions-container">
+            <!-- Bouton d'achat -->
+            <button id="buyButton">BUY MOONCAT FOR $300</button>
+            <div id="message"></div>
+            <div id="tease"></div>
+        </div>
+    </div>
+
+    <script>
+        let price = 300; // Prix initial
+        const artists = ["Xcopy"];
+        const buyButton = document.getElementById("buyButton");
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const message = document.getElementById("message");
+        const tease = document.getElementById("tease");
+        let count = 0; 
+        buyButton.textContent = `BUY MOONCAT FOR $${price}`;
+        let bid = 0;  // Initialisation de bid
+        let mile = 0; // Initialisation de mile
+
+        // Fonction pour choisir un nom aléatoire
+        function getRandomArtist() {
+            const randomIndex = Math.floor(Math.random() * artists.length);
+            return artists[randomIndex];
+        }
+
+        // Dessiner le SVG dans le canvas
+        const svgData = `<svg xmlns="http://www.w3.org/2000/svg" id="mooncat" width="100" height="70"></svg>`;
+        const img = new Image();
+        const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+        const url = URL.createObjectURL(svgBlob);
+
+        img.onload = function() {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            URL.revokeObjectURL(url); // Libère l'URL Blob après chargement
+        }
+        img.src = url;
+
+        // Fonction pour générer un nombre aléatoire
+        function randomBetween(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Gestion de l'achat
+        buyButton.addEventListener("click", function() {
+            if (Math.random() < 0.1) {
+                // Achat réussi
+                message.style.display = "none";
+                buyButton.innerHTML = `YOU WIN THE AUCTION AT $${price+mile} 👏 ! <br> ➡️ CLAIM YOUR ARTWORK ⬅️`;
+                buyButton.style.backgroundColor = "green";
+                buyButton.style.color = "black";
+                buyButton.style.fontWeight = "bold";
+                buyButton.addEventListener('click', destroySVG, { once: true });
+            } else {
+                // Achat échoué
+                message.style.display = "block";
+                const randomArtist = getRandomArtist();
+
+                // Détermination des valeurs de mile et bid en fonction du nombre d'occurrences (count)
+                if (count >= 10) {
+                    mile = 1000;
+                    bid = randomBetween(2000, 10000);
+                    bid = Math.ceil(bid / 1000) * 1000; // Multiple de 1000 à partir de la 10ème occurrence
+                } else if (count >= 5) {
+                    mile = 200;
+                    bid = randomBetween(400, 2000);
+                    bid = Math.ceil(bid / 200) * 200;   // Multiple de 200 à partir de la 5ème occurrence
+                } else if (count >= 3) {
+                    mile = 100;
+                    bid = randomBetween(200, 800);
+                    bid = Math.ceil(bid / 100) * 100;   // Multiple de 100 à partir de la 3ème occurrence
+                } else {
+                    mile = 50;
+                    bid = randomBetween(100, 350);
+                    bid = Math.ceil(bid / 50) * 50;     // Multiple de 50 par défaut
+                }
+
+                // Mise à jour du prix et de l'interface
+                price += bid;
+                count++;
+                message.innerHTML = `YOU HAVE BEEN OUTBID $${price}  BY <span style="background-color: gold; padding: 2px; border: 1px solid red;">${randomArtist}</span>`;
+                buyButton.textContent = `BID FOR $${price+mile}`; // Vous ne devez pas ajouter mile ici, car mile est simplement le multiple
+            }
+        });
+
+        // Fonction pour détruire progressivement le SVG pixel par pixel
+        function destroySVG() {
+            buyButton.innerHTML = `ARTWORK CLAIMING IN PROGRESS...`;
+            message.style.display = "none";
+
+            tease.style.display = "block";
+            tease.innerHTML = "⏱️ TIC...";
+            buyButton.disabled = true;
+            setTimeout(() => {
+                tease.innerHTML += "TAC...";
+                setTimeout(() => {
+                    tease.innerHTML += "TIC...";
+                    setTimeout(() => {
+                        tease.innerHTML = "💣 WOWWWW !";
+
+                        let pixelsToDestroy = [];
+                        let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        let pixels = imageData.data;
+                        let totalPixels = 0;
+
+                        // Création d'une liste de pixels à détruire
+                        for (let y = 0; y < canvas.height; y += 3) {
+                            for (let x = 0; x < canvas.width; x += 3) {
+                                let index = (y * canvas.width + x) * 4;
+                                if (pixels[index + 3] !== 0) { 
+                                    pixelsToDestroy.push({ x, y });
+                                    totalPixels++;
+                                }
+                            }
+                        }
+
+                        let destructionSpeed = 10;
+                        let destroyedPixels = 0;
+
+                        // Fonction pour détruire les blocs de pixels
+                        const destroyPixelBlock = () => {
+                            if (pixelsToDestroy.length > 0) {
+                                let randomIndex = randomBetween(0, pixelsToDestroy.length - 1);
+                                let { x, y } = pixelsToDestroy.splice(randomIndex, 1)[0];
+
+                                // Détruire le bloc de pixels (3x3)
+                                for (let i = 0; i < 3; i++) {
+                                    for (let j = 0; j < 3; j++) {
+                                        let pixelIndex = ((y + i) * canvas.width + (x + j)) * 4;
+                                        pixels[pixelIndex] = 255;
+                                        pixels[pixelIndex + 1] = 255;
+                                        pixels[pixelIndex + 2] = 255;
+                                        pixels[pixelIndex + 3] = 0;
+                                    }
+                                }
+
+                                ctx.putImageData(imageData, 0, 0);
+                                destroyedPixels++;
+
+                                // Messages de destruction
+                                if (destroyedPixels >= totalPixels * 0.1 && destroyedPixels < totalPixels * 0.2) {
+                                    buyButton.innerHTML = `ARTWORK CLAIMING ERROR...`;
+                                    buyButton.style.backgroundColor = "orange";
+                                    tease.innerHTML = "💬 What's happening ⁉️ ";
+                                }
+
+                                // Messages de destruction
+                                if (destroyedPixels >= totalPixels * 0.2 && destroyedPixels < totalPixels * 0.3) {
+                                    tease.innerHTML = "💥 BLIMEY 💥";
+                                }
+
+                                if (destroyedPixels >= totalPixels * 0.3 && destroyedPixels < totalPixels * 0.5) {
+                                    buyButton.style.backgroundColor = "red";
+                                    buyButton.innerHTML = `ARTWORK DAMAGED`;
+                                    tease.innerHTML = "🙀 ARTWORK IS GETTING DAMAGED !!! 🙀 ";
+                                }
+
+                                if (destroyedPixels >= totalPixels * 0.5) {
+                                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                    buyButton.innerHTML = `ARTWORK DESTROYED`;
+                                    svgContainer.innerHTML = "ARTWORK AUTODESTROY COMPLETED! <br><br> BUT REMIND <br><br> THIS WON'T HAPPEN IN THE BLOCKCHAIN WHERE ART IS IMMUTABLE";
+                                    buyButton.disabled = true;
+                                    tease.innerHTML = "";
+                                    return;
+                                }
+
+                                setTimeout(destroyPixelBlock, destructionSpeed);
+                            }
+                        };
+
+                        destroyPixelBlock();
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

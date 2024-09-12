@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mooncat Auction</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 620px;
+            max-height: 470px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .auction-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        #asciiLeft, #asciiRight {
+            width: 200px;
+            white-space: pre;
+            font-family: monospace;
+            text-align: center;
+            color: blue;
+            word-wrap: break-word;
+        }
+
+        #svgContainer {
+            width: 300px;
+            height: 300px;
+            border: 7px solid gold;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden; /* Pour éviter les débordements de pixels blancs */
+            text-align: center; 
+        }
+
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #message {
+            font-size: 18px;
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+
+        #tease {
+            text-align: center;
+            display: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .pixel {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="auction-container">
+            <!-- ASCII art à gauche -->
+            <div id="asciiLeft">
+                <pre>
+-┌───-───-───-───┐-
+-│---------------│-
+-│---  /\_/\-----│-
+-│--- ( o.o ) ---│-
+-│---- > ^ <-----│-
+-│---------------│-
+-│---------------│-
+-│- WELCOME TO  -│-
+-│-   MOONCAT    │-
+-│-   AUCTION   -│-
+-│---------------│-
+-└───-───-───-───┘-
+                </pre>
+            </div>
+            <!-- Conteneur du SVG et pixel overlay -->
+            <div id="svgContainer" >
+                <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" viewBox="41 47 38 48" width="190" height="240" shape-rendering="crispEdges" style="image-rendering:pixelated">
+                    <defs>
+                      <path id="a" d="M0 0h2v2H0z"/>
+                    </defs>
+                    <g style="filter:drop-shadow(0 0 2px #a6aae0)">
+                      <path fill="#000433" d="M71 49h-2v2h-2v2h-6v-2h-2v-2h-4v6h-2v14h-4v2h-4v4h-2v10h2v2h2v2h4v4h6v-2h6v2h4v-2h2v-8h2v-6h2v-2h4v-6h-4v-2h2V55h-2v-4h-2z"/>
+                      <path fill="#99E4FF" d="M71 51h-2v2h-2v2h-6v-2h-2v-2h-2v2h2v2h-2v2h-2v10h2v2h14v-2h2V57h-2v-2h-2v-2h2zm2 18h-2v2H57v-2h-2v2h-2v4h-2v10h-2v-4h-2v-4h2v-4h2v-2h-2v2h-2v4h-2v6h2v2h2v2h4v2h6v-2h2v-2h-4v-2h-4v-2h6v4h2v-8h2v-2h-2v-2h6v4h-2v2h2v10h-4v-2h2v-2h2v-4h2v-6h2v-2h2z"/>
+                      <g fill="#0010E6" transform="matrix(-1 0 0 1 128 0)">
+                        <use href="#a" x="57" y="53"/>
+                        <use href="#a" x="69" y="53"/>
+                        <use href="#a" x="63" y="63"/>
+                        <use href="#a" x="53" y="71"/>
+                        <use href="#a" x="63" y="75"/>
+                        <use href="#a" x="63" y="89"/>
+                        <use href="#a" x="73" y="89"/>
+                      </g>
+                      <path fill="#000766" d="M67 79h-6v8h4v-2h2z"/>
+                      <g fill="#6671FF" transform="matrix(-1 0 0 1 128 0)">
+                        <use href="#a" x="61" y="55"/>
+                        <use href="#a" x="65" y="55"/>
+                        <use href="#a" x="55" y="59"/>
+                        <use href="#a" x="71" y="59"/>
+                        <use href="#a" x="55" y="63"/>
+                        <use href="#a" x="71" y="63"/>
+                        <use href="#a" x="57" y="71"/>
+                        <use href="#a" x="73" y="71"/>
+                        <use href="#a" x="59" y="73"/>
+                        <use href="#a" x="71" y="73"/>
+                        <use href="#a" x="79" y="73"/>
+                        <use href="#a" x="75" y="75"/>
+                        <use href="#a" x="73" y="77"/>
+                        <use href="#a" x="81" y="77"/>
+                        <use href="#a" x="81" y="81"/>
+                        <use href="#a" x="79" y="83"/>
+                        <use href="#a" x="61" y="85"/>
+                      </g>
+                      <g fill="#000766" transform="matrix(-1 0 0 1 128 0)">
+                        <use href="#a" x="59" y="63"/>
+                        <use href="#a" x="67" y="63"/>
+                        <use href="#a" x="61" y="65"/>
+                        <use href="#a" x="65" y="65"/>
+                      </g>
+                      <g fill="#000433" transform="matrix(-1 0 0 1 128 0)">
+                        <use href="#a" x="59" y="59"/>
+                        <use href="#a" x="67" y="59"/>
+                      </g>
+                    </g>
+                  </svg>
+                  <div id="pixelOverlay"></div>
+            </div>
+            <!-- ASCII art à droite -->
+            <div id="asciiRight">
+                <pre>
+-┌───-───-───-───┐-
+-│-----\-[*]-----│-
+-│------'F/\-----│-
+-│-------3;-\----│-
+-│------/-|------│-
+-│-----/--|------│-
+-│---------------│-
+-│-  BIDS OPEN  -│-
+-│-    GOOD     -│-
+-│-    LUCK     -│-
+-│---------------│-
+-└───-───-───-───┘-
+                </pre>
+            </div>
+        </div>
+
+        <!-- Conteneur pour les actions sous le SVG -->
+        <div class="actions-container">
+            <!-- Bouton d'achat -->
+            <button id="buyButton">BUY MOONCAT FOR $300</button>
+            <div id="message"></div>
+            <div id="tease"></div>
+        </div>
+    </div>
+
+    <script>
+        let price = 300; // Prix initial
+        const artists = ["Xcopy", "Robness", "Foodmasku", "FelixFelixFelix", "AllSeeingSeneca", "Elon Musk", "Zuckerberg", "Bill Gates", "Gary Gensler", "Snoop Dogg", "Elton John", "SBF", "Do Kwwon", "Vitalik Buterin", "Satoshi Nakamoto", "John McAfee", "MoonCat7026", "Arthemort", "Andreas M. Antonopoulos", "Charlie Lee", "Michael Saylor", "Roger Ver", "Jack Dorsey", "Anthony Pompliano","Sergey Nazarov", "Beeple", "Pak", "Krista Kim", "Matt Medved","Fewocious", "Trevor Jones", "SnowFro","Josie Bellini", "Coldie", "Justin Timble", "Refik Anadol", "Shavonne Wong", "Kevin McCoy", "Ben Mauro", "Ariana Grande", "Drake", "Billie Eilish", "Ed Sheeran", "Taylor Swift", "Michael Jackson", "Matt Furie", "Chainleft", "TokenFox", "Blackstar", "Vidpet","Sarah Zucker" , "Momo Wang", "Cory Van Lew", "Gary Vee", "Matt Kane" , "Kevin Abosch" , "Claire Silver", "Justin Aversano", "Albertine Meunier", "Beanie Maxi", "Léo Caillard","LeBron James","Neymar Jr.","Tom Brady","Philippe Katerine","Bernard Arnault","Donald Trump","Pascal Boyart","Cozomo de' Medici","WhaleShark", "Devin Finzer","Twins Winklevoss"," Jonathan Perkins","Changpeng Zhao", "Ponderware", "MoonCatmaxi", "Charles Hoskinson","Hal Finney","Nick Szabo","Larva Labs","Greg Solano","Wylie Aronow", "Matt Hall","John Watkinson","John Hamon","Billy Markus","Jackson Palmer" ];
+        const buyButton = document.getElementById("buyButton");
+        const svgContainer = document.getElementById("svgContainer");
+        const pixelOverlay = document.getElementById("pixelOverlay");
+        const message = document.getElementById("message");
+        const tease = document.getElementById("tease");
+        let count = 0; 
+        buyButton.textContent = `BUY MOONCAT FOR $${price}`;
+        let bid = 0;  // Initialisation de bid
+        let mile = 0; // Initialisation de mile
+
+        // Fonction pour choisir un nom aléatoire
+        function getRandomArtist() {
+            const randomIndex = Math.floor(Math.random() * artists.length);
+            return artists[randomIndex];
+        }
+
+        // Fonction pour générer un nombre aléatoire
+        function randomBetween(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Gestion de l'achat
+        buyButton.addEventListener("click", function() {
+            if (Math.random() < 0.1) {
+                // Achat réussi
+                message.style.display = "none";
+                buyButton.innerHTML = `YOU WIN THE AUCTION AT $${price+mile} 👏 ! <br> ➡️ CLAIM YOUR ARTWORK ⬅️`;
+                buyButton.style.backgroundColor = "green";
+                buyButton.style.color = "black";
+                buyButton.style.fontWeight = "bold";
+                buyButton.addEventListener('click', destroySVG, { once: true });
+            } else {
+                // Achat échoué
+                message.style.display = "block";
+                const randomArtist = getRandomArtist();
+
+                // Détermination des valeurs de mile et bid en fonction du nombre d'occurrences (count)
+                if (count >= 10) {
+                    mile = 1000;
+                    bid = randomBetween(2000, 10000);
+                    bid = Math.ceil(bid / 1000) * 1000; // Multiple de 1000 à partir de la 10ème occurrence
+                } else if (count >= 5) {
+                    mile = 200;
+                    bid = randomBetween(400, 2000);
+                    bid = Math.ceil(bid / 200) * 200;   // Multiple de 200 à partir de la 5ème occurrence
+                } else if (count >= 3) {
+                    mile = 100;
+                    bid = randomBetween(200, 800);
+                    bid = Math.ceil(bid / 100) * 100;   // Multiple de 100 à partir de la 3ème occurrence
+                } else {
+                    mile = 50;
+                    bid = randomBetween(100, 350);
+                    bid = Math.ceil(bid / 50) * 50;     // Multiple de 50 par défaut
+                }
+
+                // Mise à jour du prix et de l'interface
+                price += bid;
+                count++;
+                message.innerHTML = `YOU HAVE BEEN OUTBID $${price}  BY <span style="background-color: gold; padding: 2px; border: 1px solid red;">${randomArtist}</span>`;
+                buyButton.textContent = `BID FOR $${price+mile}`; // Vous ne devez pas ajouter mile ici, car mile est simplement le multiple
+            }
+        });
+
+        // Fonction pour détruire progressivement le SVG pixel par pixel
+        function destroySVG() {
+            buyButton.innerHTML = `ARTWORK CLAIMING IN PROGRESS...`;
+            message.style.display = "none";
+
+            tease.style.display = "block";
+            tease.innerHTML = "⏱️ TIC...";
+            buyButton.disabled = true;
+            setTimeout(() => {
+                tease.innerHTML += "TAC...";
+                setTimeout(() => {
+                    tease.innerHTML += "TIC...";
+                    setTimeout(() => {
+                        tease.innerHTML = "💣 WOWWWW !";
+
+                        let pixelsToDestroy = [];
+                        let totalPixels = 0;
+                        let width = svgContainer.clientWidth;
+                        let height = svgContainer.clientHeight;
+                        const pixelSize = 10; // Taille des pixels blancs
+                        const margin = 5; // Marge pour éviter les bords
+
+                        // Création d'une liste de pixels à détruire
+                        for (let y = margin; y < height - margin; y += pixelSize) {
+                            for (let x = margin; x < width - margin; x += pixelSize) {
+                                pixelsToDestroy.push({ x, y });
+                                totalPixels++;
+                            }
+                        }
+
+                        let destructionSpeed = 20;
+                        let destroyedPixels = 0;
+                        const destroyedPixelsSet = new Set(); // Pour suivre les pixels déjà détruits
+
+                        // Fonction pour détruire les blocs de pixels
+                        const destroyPixelBlock = () => {
+                            if (pixelsToDestroy.length > 0) {
+                                let randomIndex = randomBetween(0, pixelsToDestroy.length - 1);
+                                let { x, y } = pixelsToDestroy.splice(randomIndex, 1)[0];
+
+                                // Vérifier si le pixel a déjà été détruit
+                                if (destroyedPixelsSet.has(`${x},${y}`)) {
+                                    destroyPixelBlock();
+                                    return;
+                                }
+
+                                destroyedPixelsSet.add(`${x},${y}`);
+
+                                // Détruire le bloc de pixels (10x10)
+                                let pixel = document.createElement('div');
+                                pixel.className = 'pixel';
+                                pixel.style.left = `${x}px`;
+                                pixel.style.top = `${y}px`;
+                                pixelOverlay.appendChild(pixel);
+
+                                destroyedPixels++;
+
+                                // Messages de destruction
+                                if (destroyedPixels >= totalPixels * 0.2 && destroyedPixels < totalPixels * 0.4) {
+                                    buyButton.innerHTML = `ARTWORK CLAIMING ERROR...`;
+                                    buyButton.style.backgroundColor = "orange";
+                                    tease.innerHTML = "💬 What's happening ⁉️ ";
+                                }
+
+                                if (destroyedPixels >= totalPixels * 0.4 && destroyedPixels < totalPixels * 0.6) {
+                                    tease.innerHTML = "💥 BLIMEY 💥";
+                                }
+
+                                if (destroyedPixels >= totalPixels * 0.6 && destroyedPixels < totalPixels * 0.8) {
+                                    buyButton.style.backgroundColor = "red";
+                                    buyButton.innerHTML = `ARTWORK DAMAGED`;
+                                    tease.innerHTML = "🙀 ARTWORK IS GETTING DAMAGED !!! 🙀 ";
+                                }
+
+                                if (destroyedPixels >= totalPixels * 0.99) {
+                                    buyButton.innerHTML = `ARTWORK DESTROYED`;
+                                    svgContainer.innerHTML = "ARTWORK AUTODESTROY COMPLETED! <br><br> BUT REMIND <br><br> THIS WON'T HAPPEN IN THE BLOCKCHAIN WHERE ART IS IMMUTABLE";
+                                    buyButton.disabled = true;
+                                    tease.innerHTML = "";
+                                    return;
+                                }
+
+                                setTimeout(destroyPixelBlock, destructionSpeed);
+                            }
+                        };
+
+                        destroyPixelBlock();
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mooncat Auction</title>
+
+<style>
+.container{display:flex;flex-direction:column;align-items:center;max-width:620px;max-height:470px;width:100%;height:100%}.auC{display:flex;justify-content:space-between;align-items:center;width:100%}#asL,#asR{width:200px;white-space:pre;font-family:monospace;text-align:center;color:blue;word-wrap:break-word}#svC{width:300px;height:300px;border:7px solid gold;box-shadow:0 0 15px rgba(255,215,0,0.5);background-color:#fff;display:flex;justify-content:center;align-items:center;flex-direction:column;position:relative;overflow:hidden;text-align:center}.acC{display:flex;flex-direction:column;align-items:center;margin-top:20px}button{padding:10px 20px;background-color:white;font-size:16px;cursor:pointer}#Ms{font-size:18px;color:red;display:none;margin-top:10px}#Te{text-align:center;display:none;font-size:18px;font-weight:bold;margin-top:10px}.pixel{position:absolute;width:10px;height:10px;background-color:white}
+</style>
+</head>
+<body>
+    <div class="container"><div class="auC"><div id="asL">
+<pre>
+-┌───-───-───-───┐-
+-│---------------│-
+-│---  /\_/\-----│-
+-│--- ( o.o ) ---│-
+-│---- > ^ <-----│-
+-│---------------│-
+-│---------------│-
+-│- WELCOME TO  -│-
+-│-   MOONCAT    │-
+-│-   AUCTION   -│-
+-│---------------│-
+-└───-───-───-───┘-
+</pre>
+</div><div id="svC" >
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" viewBox="41 47 38 48" width="190" height="240" shape-rendering="crispEdges" style="image-rendering:pixelated"><defs><path id="a" d="M0 0h2v2H0z"/></defs><g style="filter:drop-shadow(0 0 2px #a6aae0)"><path fill="#000433" d="M71 49h-2v2h-2v2h-6v-2h-2v-2h-4v6h-2v14h-4v2h-4v4h-2v10h2v2h2v2h4v4h6v-2h6v2h4v-2h2v-8h2v-6h2v-2h4v-6h-4v-2h2V55h-2v-4h-2z"/><path fill="#99E4FF" d="M71 51h-2v2h-2v2h-6v-2h-2v-2h-2v2h2v2h-2v2h-2v10h2v2h14v-2h2V57h-2v-2h-2v-2h2zm2 18h-2v2H57v-2h-2v2h-2v4h-2v10h-2v-4h-2v-4h2v-4h2v-2h-2v2h-2v4h-2v6h2v2h2v2h4v2h6v-2h2v-2h-4v-2h-4v-2h6v4h2v-8h2v-2h-2v-2h6v4h-2v2h2v10h-4v-2h2v-2h2v-4h2v-6h2v-2h2z"/><g fill="#0010E6" transform="matrix(-1 0 0 1 128 0)"><use href="#a" x="57" y="53"/><use href="#a" x="69" y="53"/><use href="#a" x="63" y="63"/><use href="#a" x="53" y="71"/><use href="#a" x="63" y="75"/><use href="#a" x="63" y="89"/><use href="#a" x="73" y="89"/></g><path fill="#000766" d="M67 79h-6v8h4v-2h2z"/><g fill="#6671FF" transform="matrix(-1 0 0 1 128 0)"><use href="#a" x="61" y="55"/><use href="#a" x="65" y="55"/><use href="#a" x="55" y="59"/><use href="#a" x="71" y="59"/><use href="#a" x="55" y="63"/><use href="#a" x="71" y="63"/><use href="#a" x="57" y="71"/><use href="#a" x="73" y="71"/><use href="#a" x="59" y="73"/><use href="#a" x="71" y="73"/><use href="#a" x="79" y="73"/><use href="#a" x="75" y="75"/><use href="#a" x="73" y="77"/><use href="#a" x="81" y="77"/><use href="#a" x="81" y="81"/><use href="#a" x="79" y="83"/><use href="#a" x="61" y="85"/></g><g fill="#000766" transform="matrix(-1 0 0 1 128 0)"><use href="#a" x="59" y="63"/><use href="#a" x="67" y="63"/><use href="#a" x="61" y="65"/><use href="#a" x="65" y="65"/></g><g fill="#000433" transform="matrix(-1 0 0 1 128 0)"><use href="#a" x="59" y="59"/><use href="#a" x="67" y="59"/></g></g></svg>
+<div id="pxO"></div></div><div id="asR">
+<pre>
+-┌───-───-───-───┐-
+-│-----\-[*]-----│-
+-│------'F/\-----│-
+-│-------3;-\----│-
+-│------/-|------│-
+-│-----/--|------│-
+-│---------------│-
+-│-  BIDS OPEN  -│-
+-│-    GOOD     -│-
+-│-    LUCK     -│-
+-│---------------│-
+-└───-───-───-───┘-
+</pre>
+</div></div><div class="acC"><button id="byb">BUY MOONCAT FOR $300</button><div id="Ms"></div><div id="Te"></div></div></div>
+<script>let price=300;const artists=["Xcopy","Robness","Foodmasku","FelixFelixFelix","AllSeeingSeneca","Elon Musk","Zuckerberg","Bill Gates","Gary Gensler","Snoop Dogg","Elton John","SBF","Do Kwwon","Vitalik Buterin","Satoshi Nakamoto","John McAfee","MoonCat7026","Arthemort","Andreas M. Antonopoulos","Charlie Lee","Michael Saylor","Roger Ver","Jack Dorsey","Anthony Pompliano","Sergey Nazarov","Beeple","Pak","Krista Kim","Matt Medved","Fewocious","Trevor Jones","SnowFro","Josie Bellini","Coldie","Justin Timble","Refik Anadol","Shavonne Wong","Kevin McCoy","Ben Mauro","Ariana Grande","Drake","Billie Eilish","Ed Sheeran","Taylor Swift","Michael Jackson","Matt Furie","Chainleft","TokenFox","Blackstar","Vidpet","Sarah Zucker","Momo Wang","Cory Van Lew","Gary Vee","Matt Kane","Kevin Abosch","Claire Silver","Justin Aversano","Albertine Meunier","Beanie Maxi","Léo Caillard","LeBron James","Neymar Jr.","Tom Brady","Philippe Katerine","Bernard Arnault","Donald Trump","Pascal Boyart","Cozomo de' Medici","WhaleShark","Devin Finzer","Twins Winklevoss"," Jonathan Perkins","Changpeng Zhao","Ponderware","MoonCatmaxi","Charles Hoskinson","Hal Finney","Nick Szabo","Larva Labs","Greg Solano","Wylie Aronow","Matt Hall","John Watkinson","John Hamon","Billy Markus","Jackson Palmer"];const byb=document.getElementById("byb");const svC=document.getElementById("svC");const pxO=document.getElementById("pxO");const Ms=document.getElementById("Ms");const Te=document.getElementById("Te");let count=0;byb.textContent=`BUY MOONCAT FOR $${price}`;let bid=0;let mile=0;function gRA(){const rI=Math.floor(Math.random()*artists.length);return artists[rI]}
+function randomBetween(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+byb.addEventListener("click",function(){if(Math.random()<0.1){Ms.style.display="none";byb.innerHTML=`YOU WIN THE AUCTION AT $${price+mile} 👏 ! <br> ➡️ CLAIM YOUR ARTWORK ⬅️`;byb.style.backgroundColor="green";byb.style.color="black";byb.style.fontWeight="bold";byb.addEventListener('click',dSVG,{once:!0})}else{Ms.style.display="block";const randomArtist=gRA();if(count>=10){mile=1000;bid=randomBetween(2000,10000);bid=Math.ceil(bid/1000)*1000}else if(count>=5){mile=200;bid=randomBetween(400,2000);bid=Math.ceil(bid/200)*200}else if(count>=3){mile=100;bid=randomBetween(200,800);bid=Math.ceil(bid/100)*100}else{mile=50;bid=randomBetween(100,350);bid=Math.ceil(bid/50)*50}
+price+=bid;count++;Ms.innerHTML=`YOU HAVE BEEN OUTBID $${price}  BY <span style="background-color: gold; padding: 2px; border: 1px solid red;">${randomArtist}</span>`;byb.textContent=`BID FOR $${price+mile}`}});function dSVG(){byb.innerHTML=`ARTWORK CLAIMING IN PROGRESS...`;Ms.style.display="none";Te.style.display="block";Te.innerHTML="⏱️ TIC...";byb.disabled=!0;setTimeout(()=>{Te.innerHTML+="TAC...";setTimeout(()=>{Te.innerHTML+="TIC...";setTimeout(()=>{Te.innerHTML="💣 WOWWWW !";let piD=[];let tPi=0;let width=svC.clientWidth;let height=svC.clientHeight;const pSi=10;const margin=5;for(let y=margin;y<height-margin;y+=pSi){for(let x=margin;x<width-margin;x+=pSi){piD.push({x,y});tPi++}}
+let dSp=20;let dePi=0;const dePiSet=new Set();const destroyPixelBlock=()=>{if(piD.length>0){let rI=randomBetween(0,piD.length-1);let{x,y}=piD.splice(rI,1)[0];if(dePiSet.has(`${x},${y}`)){destroyPixelBlock();return}
+dePiSet.add(`${x},${y}`);let pixel=document.createElement('div');pixel.className='pixel';pixel.style.left=`${x}px`;pixel.style.top=`${y}px`;pxO.appendChild(pixel);dePi++;if(dePi>=tPi*0.2&&dePi<tPi*0.4){byb.innerHTML=`ARTWORK CLAIMING ERROR...`;byb.style.backgroundColor="orange";Te.innerHTML="💬 What's happening ⁉️"}
+if(dePi>=tPi*0.4&&dePi<tPi*0.6){Te.innerHTML="💥 BLIMEY 💥"}
+if(dePi>=tPi*0.6&&dePi<tPi*0.8){byb.style.backgroundColor="red";byb.innerHTML=`ARTWORK DAMAGED`;Te.innerHTML="🙀 ARTWORK IS GETTING DAMAGED !!! 🙀 "}
+if(dePi>=tPi*0.99){byb.innerHTML=`ARTWORK DESTROYED`;svC.innerHTML="ARTWORK AUTODESTROY COMPLETED! <br><br> BUT REMIND <br><br> THIS WON'T HAPPEN IN THE BLOCKCHAIN WHERE ART IS IMMUTABLE";byb.disabled=!0;Te.innerHTML="";return}
+setTimeout(destroyPixelBlock,dSp)}};destroyPixelBlock()},1000)},1000)},1000)}</script>
+</body>
+</html>
