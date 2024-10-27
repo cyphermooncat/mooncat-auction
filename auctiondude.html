@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dude Auction</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: flex-start; /* Alignement des éléments en haut */
+            max-width: 820px; /* Largeur max ajustée */
+        }
+
+        #svgContainer {
+            width: 400px;
+            height: 400px;
+            border: 7px solid gold;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            background-color: #fff;
+            position: relative;
+            overflow: hidden;
+            text-align: center; 
+            display: flex; /* Active Flexbox */
+            justify-content: center; /* Centre horizontalement */
+            align-items: center; /* Centre verticalement */
+        }
+
+        .actions-container {
+            margin-left: 20px; /* Espace entre le SVG et les actions */
+            width: 200px; /* Largeur fixe pour les actions */
+            text-align: "left";
+            
+        }
+
+        button {
+    padding: 10px 20px;
+    background-color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s, color 0.3s; /* Ajoute une transition douce */
+        }
+
+        button:hover {
+    background-color: green; /* Change la couleur de fond */
+    color: black; /* Change la couleur du texte */
+    font-weight: bold; /* Rend le texte en gras */
+        }
+
+        #message {
+            font-size: 18px;
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+
+        #tease {
+            text-align: left;
+            display: none;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .pixel {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="svgContainer">
+            <img src="https://github.com/cyphermooncat/mooncat-auction/blob/main/157.gif?raw=true" 
+                 alt="Dude GIF" 
+                 style="width: 90%; height: 90%; object-fit: cover; display: block; margin: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+    <div id="pixelOverlay"></div>
+        </div>
+        <div class="actions-container">
+            <pre>
+┌─-───-───-───-───-───-───-─┐
+│------------------\-[*]----│
+│------/\_/\--------'F/\----│
+│-----( o.o )--------3;-\---│
+│------> ^ <--------/-|-----│
+│------------------/--|-----│
+│---------------------------│
+│--WELCOME TO DUDE AUCTION--│
+│-------BIDS ARE OPEN-------│
+│---------GOOD LUCK---------│
+└─-───-───-───-───-───-───-─┘
+            </pre>
+
+            <button id="buyButton">BUY DUDE FOR $300</button>
+            <div id="message"></div>
+            <div id="tease"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+    <script>
+        let price = 300; // Prix initial
+        const artists = ["Xcopy", "Robness", "Foodmasku", "FelixFelixFelix", "AllSeeingSeneca", "Elon Musk", "Zuckerberg", "Bill Gates", "Gary Gensler", "Snoop Dogg", "Elton John", "SBF", "Do Kwwon", "Vitalik Buterin", "Satoshi Nakamoto", "John McAfee", "MoonCat7026", "Arthemort", "Andreas M. Antonopoulos", "Charlie Lee", "Michael Saylor", "Roger Ver", "Jack Dorsey", "Anthony Pompliano","Sergey Nazarov", "Beeple", "Pak", "Krista Kim", "Matt Medved","Fewocious", "Trevor Jones", "SnowFro","Josie Bellini", "Coldie", "Justin Timble", "Refik Anadol", "Shavonne Wong", "Kevin McCoy", "Ben Mauro", "Ariana Grande", "Drake", "Billie Eilish", "Ed Sheeran", "Taylor Swift", "Michael Jackson", "Matt Furie", "Chainleft", "TokenFox", "Blackstar", "Vidpet","Sarah Zucker" , "Momo Wang", "Cory Van Lew", "Gary Vee", "Matt Kane" , "Kevin Abosch" , "Claire Silver", "Justin Aversano", "Albertine Meunier", "Beanie Maxi", "Léo Caillard","LeBron James","Neymar Jr.","Tom Brady","Philippe Katerine","Bernard Arnault","Donald Trump","Pascal Boyart","Cozomo de' Medici","WhaleShark", "Devin Finzer","Twins Winklevoss"," Jonathan Perkins","Changpeng Zhao", "Ponderware", "MoonCatmaxi", "Charles Hoskinson","Hal Finney","Nick Szabo","Larva Labs","Greg Solano","Wylie Aronow", "Matt Hall","John Watkinson","John Hamon","Billy Markus","Jackson Palmer" ];
+        const buyButton = document.getElementById("buyButton");
+        const svgContainer = document.getElementById("svgContainer");
+        const pixelOverlay = document.getElementById("pixelOverlay");
+        const message = document.getElementById("message");
+        const tease = document.getElementById("tease");
+        let count = 0; 
+        buyButton.textContent = `BUY DUDE FOR $${price}`;
+        let bid = 0;  // Initialisation de bid
+        let mile = 0; // Initialisation de mile
+
+        // Fonction pour choisir un nom aléatoire
+        function getRandomArtist() {
+            const randomIndex = Math.floor(Math.random() * artists.length);
+            return artists[randomIndex];
+        }
+
+        // Fonction pour générer un nombre aléatoire
+        function randomBetween(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Gestion de l'achat
+        buyButton.addEventListener("click", function() {
+            if (Math.random() < 0.1) {
+                // Achat réussi
+                message.innerHTML = `✅ YOU WIN THE AUCTION AT $${price+mile} 👏`;
+                message.style.color = "green";
+                buyButton.innerHTML = `CLAIM YOUR ARTWORK NOW`;
+                buyButton.style.backgroundColor = "green";
+                buyButton.style.color = "black";
+                buyButton.style.fontWeight = "bold";
+                buyButton.addEventListener('click', destroySVG, { once: true });
+            } else {
+                // Achat échoué
+                message.style.display = "block";
+                const randomArtist = getRandomArtist();
+
+                // Détermination des valeurs de mile et bid en fonction du nombre d'occurrences (count)
+                if (count >= 10) {
+                    mile = 1000;
+                    bid = randomBetween(2000, 10000);
+                    bid = Math.ceil(bid / 1000) * 1000; // Multiple de 1000 à partir de la 10ème occurrence
+                } else if (count >= 5) {
+                    mile = 200;
+                    bid = randomBetween(400, 2000);
+                    bid = Math.ceil(bid / 200) * 200;   // Multiple de 200 à partir de la 5ème occurrence
+                } else if (count >= 3) {
+                    mile = 100;
+                    bid = randomBetween(200, 800);
+                    bid = Math.ceil(bid / 100) * 100;   // Multiple de 100 à partir de la 3ème occurrence
+                } else {
+                    mile = 50;
+                    bid = randomBetween(100, 350);
+                    bid = Math.ceil(bid / 50) * 50;     // Multiple de 50 par défaut
+                }
+
+                // Mise à jour du prix et de l'interface
+                price += bid;
+                count++;
+                message.innerHTML = `⚠️ YOU HAVE BEEN OUTBID $${price} BY:<br><br> <span style="background-color: gold; padding: 2px; border: 1px solid red;">${randomArtist}</span>`;
+                buyButton.textContent = `BID FOR $${price+mile}`; // Vous ne devez pas ajouter mile ici, car mile est simplement le multiple
+            }
+        });
+
+        // Fonction pour détruire progressivement le SVG pixel par pixel
+        function destroySVG() {
+            buyButton.innerHTML = `ARTWORK CLAIMING IN PROGRESS...`;
+            message.style.display = "none";
+
+            tease.style.display = "block";
+            tease.innerHTML = "⏱️ TIC...";
+            buyButton.disabled = true;
+            setTimeout(() => {
+                tease.innerHTML += "TAC...";
+                setTimeout(() => {
+                    tease.innerHTML += "TIC...";
+                    setTimeout(() => {
+                        tease.innerHTML = "💣 WOWWWW !";
+
+                        let pixelsToDestroy = [];
+                        let totalPixels = 0;
+                        let width = svgContainer.clientWidth;
+                        let height = svgContainer.clientHeight;
+                        const pixelSize = 10; // Taille des pixels blancs
+                        const margin = 5; // Marge pour éviter les bords
+
+                        // Création d'une liste de pixels à détruire
+                        for (let y = margin; y < height - margin; y += pixelSize) {
+                            for (let x = margin; x < width - margin; x += pixelSize) {
+                                pixelsToDestroy.push({ x, y });
+                                totalPixels++;
+                            }
+                        }
+
+                        let destructionSpeed = 20;
+                        let destroyedPixels = 0;
+                        const destroyedPixelsSet = new Set(); // Pour suivre les pixels déjà détruits
+
+                        // Fonction pour détruire les blocs de pixels
+                        const destroyPixelBlock = () => {
+                            if (pixelsToDestroy.length > 0) {
+                                let randomIndex = randomBetween(0, pixelsToDestroy.length - 1);
+                                let { x, y } = pixelsToDestroy.splice(randomIndex, 1)[0];
+
+                                // Vérifier si le pixel a déjà été détruit
+                                if (destroyedPixelsSet.has(`${x},${y}`)) {
+                                    destroyPixelBlock();
+                                    return;
+                                }
+
+                                destroyedPixelsSet.add(`${x},${y}`);
+
+                                // Détruire le bloc de pixels (10x10)
+                                let pixel = document.createElement('div');
+                                pixel.className = 'pixel';
+                                pixel.style.left = `${x}px`;
+                                pixel.style.top = `${y}px`;
+                                pixelOverlay.appendChild(pixel);
+
+                                destroyedPixels++;
+
+                                // Messages de destruction
+                                if (destroyedPixels >= totalPixels * 0.2 && destroyedPixels < totalPixels * 0.4) {
+                                    buyButton.innerHTML = `ARTWORK CLAIMING ERROR...`;
+                                    buyButton.style.backgroundColor = "orange";
+                                    tease.innerHTML = "💬 What's happening ⁉️ ";
+                                }
+
+                                if (destroyedPixels >= totalPixels * 0.4 && destroyedPixels < totalPixels * 0.6) {
+                                    tease.innerHTML = "💥 BLIMEY 💥";
+                                }
+
+                                if (destroyedPixels >= totalPixels * 0.6 && destroyedPixels < totalPixels * 0.8) {
+                                    buyButton.style.backgroundColor = "red";
+                                    buyButton.innerHTML = `EMERGENCY`;
+                                    tease.innerHTML = "🙀 ARTWORK IS DESTROYED!!! 🙀";
+                                }
+
+                                if (destroyedPixels >= totalPixels * 0.999) {
+                                    buyButton.innerHTML = `YOU ARE SAFE 🔒`;
+                                    buyButton.style.backgroundColor="green"
+                                    svgContainer.innerHTML = "🚧 ARTWORK SELF-DESTROY COMPLETE! 🚧 <br><br> BUT REMEMBER, <br><br> THIS WILL NEVER OCCUR ON THE BLOCKCHAIN, WHERE FULLY ON-CHAIN ART IS IMMUTABLE 😺";
+                                    buyButton.disabled = true;
+                                    tease.innerHTML = "";
+                                    return;
+                                }
+
+                                setTimeout(destroyPixelBlock, destructionSpeed);
+                            }
+                        };
+
+                        destroyPixelBlock();
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
