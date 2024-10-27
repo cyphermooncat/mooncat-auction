@@ -28,7 +28,7 @@
         .actions-container {
             margin-left: 20px; /* Espace entre le SVG et les actions */
             width: 200px; /* Largeur fixe pour les actions */
-            text-align: "left";
+            text-align: center;
             
         }
 
@@ -39,6 +39,8 @@
     cursor: pointer;
     margin-bottom: 10px;
     transition: background-color 0.3s, color 0.3s; /* Ajoute une transition douce */
+    text-align: center;
+    display: flex;
         }
 
         button:hover {
@@ -52,10 +54,11 @@
             color: red;
             display: none;
             margin-top: 10px;
+            display: flex;
         }
 
         #tease {
-            text-align: left;
+            text-align: center;
             display: none;
             font-size: 18px;
             font-weight: bold;
@@ -164,13 +167,14 @@
                 price += bid;
                 count++;
                 message.innerHTML = `⚠️ YOU HAVE BEEN OUTBID $${price} BY:<br><br> <span style="background-color: gold; padding: 2px; border: 1px solid red;">${randomArtist}</span>`;
-                buyButton.textContent = `BID FOR $${price+mile}`; // Vous ne devez pas ajouter mile ici, car mile est simplement le multiple
+                buyButton.textContent = `BID DUDE FOR $${price+mile}`; // Vous ne devez pas ajouter mile ici, car mile est simplement le multiple
             }
         });
 
         // Fonction pour détruire progressivement le SVG pixel par pixel
         function destroySVG() {
-            buyButton.innerHTML = `ARTWORK CLAIMING IN PROGRESS...`;
+            buyButton.innerHTML = `ARTWORK CLAIMING...`;
+            buyButton.style.backgroundColor = "orange";
             message.style.display = "none";
 
             tease.style.display = "block";
@@ -238,14 +242,14 @@
 
                                 if (destroyedPixels >= totalPixels * 0.6 && destroyedPixels < totalPixels * 0.8) {
                                     buyButton.style.backgroundColor = "red";
-                                    buyButton.innerHTML = `EMERGENCY`;
+                                    buyButton.innerHTML = `EMERGENCY !!!`;
                                     tease.innerHTML = "🙀 ARTWORK IS DESTROYED!!! 🙀";
                                 }
 
                                 if (destroyedPixels >= totalPixels * 0.999) {
                                     buyButton.innerHTML = `YOU ARE SAFE 🔒`;
                                     buyButton.style.backgroundColor="green"
-                                    svgContainer.innerHTML = "🚧 ARTWORK SELF-DESTROY COMPLETE! 🚧 <br><br> BUT REMEMBER, <br><br> THIS WILL NEVER OCCUR ON THE BLOCKCHAIN, WHERE FULLY ON-CHAIN ART IS IMMUTABLE 😺";
+                                    svgContainer.innerHTML = "🚧 ARTWORK SELF-DESTROY COMPLETE! 🚧 <br><br> BUT REMEMBER, <br><br> THIS WILL NEVER OCCUR ON THE BLOCKCHAIN, WHERE FULLY ON-CHAIN ART LIKE CYPHERDUDES IS IMMUTABLE 🔒";
                                     buyButton.disabled = true;
                                     tease.innerHTML = "";
                                     return;
