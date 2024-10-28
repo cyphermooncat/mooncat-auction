@@ -80,7 +80,7 @@
         <div id="svgcT">
             <img src="https://github.com/cyphermooncat/mooncat-auction/blob/main/157.gif?raw=true" 
                  alt="Dude GIF" 
-                 style="width: 250px; height: 250px; object-fit: cover; display: block; margin: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+                 style="width: 220px; height: 220px; object-fit: cover; display: block; margin: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
     <div id="pixelOverlay"></div>
         </div>
         <div class="actions-cT">
@@ -116,14 +116,25 @@
         const mS = document.getElementById("mS");
         const tease = document.getElementById("tease");
         let count = 0; 
-        buyButton.textContent = `BUY DUDE FOR $${price}`;
+        buyButton.textContent = `BUY DUDE FOR ${formatPriceUSD(price)}`;
         let bid = 0;  // Initialisation de bid
         let mile = 0; // Initialisation de mile
+        let finalArtist = "";
+        
 
         // Fonction pour choisir un nom aléatoire
         function getRandomArtist() {
             const randomIndex = Math.floor(Math.random() * artists.length);
             return artists[randomIndex];
+        }
+
+        // Fonction de formatage en dollars américain
+        function formatPriceUSD(value) {
+            return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0
+            }).format(value);
         }
 
         // Fonction pour générer un nombre aléatoire
@@ -133,9 +144,9 @@
 
         // Gestion de l'achat
         buyButton.addEventListener("click", function() {
-            if (Math.random() < 0.1) {
+            if (Math.random() < 0.08) {
                 // Achat réussi
-                mS.innerHTML = `✅ YOU WIN THE AUCTION AT $${price+mile}`;
+                mS.innerHTML = `✅ YOU WIN THE AUCTION AT ${formatPriceUSD(price+mile)}`;
                 buyButton.innerHTML = `CLAIM YOUR ARTWORK NOW`;
                 buyButton.style.backgroundColor = "green";
                 buyButton.style.color = "black";
@@ -144,7 +155,11 @@
             } else {
                 // Achat échoué
                 mS.style.display = "block";
-                const randomArtist = getRandomArtist();
+                            // Utiliser l'artiste final si count >= 7, sinon générer un nouvel artiste
+            let randomArtist = count >= 7 ? finalArtist : getRandomArtist();
+            if (count < 7) {
+                finalArtist = randomArtist; // Met à jour l'artiste final jusqu'à count = 7
+            }
 
                 // Détermination des valeurs de mile et bid en fonction du nombre d'occurrences (count)
                 if (count >= 10) {
@@ -168,8 +183,8 @@
                 // Mise à jour du prix et de l'interface
                 price += bid;
                 count++;
-                mS.innerHTML = `⚠️ YOU HAVE BEEN OUTBID $${price} BY:<br><br> <span style="background-color: gold; padding: 2px; border: 1px solid red;">${randomArtist}</span>`;
-                buyButton.textContent = `BID DUDE FOR $${price+mile}`; // Vous ne devez pas ajouter mile ici, car mile est simplement le multiple
+                mS.innerHTML = `⚠️ YOU HAVE BEEN OUTBID ${formatPriceUSD(price)} BY:<br><br> <span style="color: #000000; font-weight: bold; padding: 2px; font-size: 1.1em; font-family: 'Georgia', serif; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">${randomArtist}</span>`;
+                buyButton.textContent = `BID DUDE FOR ${formatPriceUSD(price+mile)}`; // Vous ne devez pas ajouter mile ici, car mile est simplement le multiple
             }
         });
 
@@ -243,14 +258,14 @@
 
                                 if (destroyedPixels >= totalPixels * 0.6 && destroyedPixels < totalPixels * 0.8) {
                                     buyButton.style.backgroundColor = "red";
-                                    buyButton.innerHTML = `EMERGENCY !!!`;
-                                    tease.innerHTML = "🙀 ARTWORK IS DESTROYED!!! 🙀";
+                                    buyButton.innerHTML = `!!! EMERGENCY !!!`;
+                                    tease.innerHTML = "ARTWORK IS DESTROYED 🙀";
                                 }
 
                                 if (destroyedPixels >= totalPixels * 0.999) {
                                     buyButton.innerHTML = `YOU ARE SAFE 🔒`;
                                     buyButton.style.backgroundColor="green"
-                                    svgcT.innerHTML = "🚧 ARTWORK SELF-DESTROY COMPLETE! 🚧 <br><br> BUT REMEMBER, <br><br> THIS WILL NEVER OCCUR ON THE BLOCKCHAIN, WHERE FULLY ON-CHAIN ART LIKE CYPHERDUDES IS IMMUTABLE 🔒";
+                                    svgcT.innerHTML = "ARTWORK<br>SELF-DESTROY<br>🚧 COMPLETE! 🚧<br><br> BUT REMEMBER, <br><br> THIS WILL NEVER OCCUR ON THE BLOCKCHAIN, WHERE FULLY ON-CHAIN ART LIKE CYPHERDUDES IS IMMUTABLE.";
                                     buyButton.disabled = true;
                                     buyButton.style.cursor = 'default';
                                     tease.innerHTML = "";
